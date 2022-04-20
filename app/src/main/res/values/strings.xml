@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">NasaApp</string>
+    <string name="enter_your_birthdate">What is your date of birth ?</string>
+    <string name="yyyy_mm_dd">YYYY-MM-DD</string>
+    <string name="enter">Enter</string>
+</resources>
