@@ -7,35 +7,27 @@ import androidx.lifecycle.MutableLiveData
 import com.example.nasaapp.service.listener.APIListener
 import com.example.nasaapp.service.model.HeaderModel
 import com.example.nasaapp.service.repository.remote.NasaRepository
-import com.google.gson.Gson
 
 class ApodViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mNasaRepository = NasaRepository()
 
-    private val mApod = MutableLiveData<Boolean>()
+    private val mApod = MutableLiveData<HeaderModel>()
 
-    var apod: LiveData<Boolean> = mApod
+    var apod: LiveData<HeaderModel> = mApod
 
     fun getInfosAstronomyPicOfTheDay(date: String) {
         mNasaRepository.getAstronomyPicOfTheDay(date, object : APIListener {
             override fun onSuccess(model: HeaderModel) {
-                mApod.value = true
-
-                var json = Gson().toJson(model)
-                var body = Gson().fromJson(json, HeaderModel::class.java)
-
-                model.date = body.date
-                model.copyright = body.copyright
-                model.explanation = body.explanation
-                model.hdurl = body.hdurl
-                model.title = body.title
+                mApod.value = model
             }
 
             override fun onFailure(str: String) {
-                mApod.value = false
+                mApod.value = null
             }
 
         })
     }
+
+
 }

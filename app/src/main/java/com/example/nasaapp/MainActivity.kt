@@ -45,9 +45,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun observe() {
         mViewModel.apod.observe(this) {
-            if (date != " ") {
+            if (it != null) {
                 binding.editTextBirthdate.text.clear()
-                startActivity(Intent(this, ApodActivity::class.java))
+                var intent = Intent(this, ApodActivity::class.java)
+                intent.putExtra("title", it.title)
+                intent.putExtra("explanation", it.explanation)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show()
             }
