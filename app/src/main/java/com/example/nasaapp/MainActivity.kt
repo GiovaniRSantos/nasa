@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 var intent = Intent(this, ApodActivity::class.java)
                 intent.putExtra("title", it.title)
                 intent.putExtra("explanation", it.explanation)
+                intent.putExtra("url", it.url)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show()

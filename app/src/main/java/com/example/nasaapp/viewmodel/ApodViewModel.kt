@@ -1,6 +1,8 @@
 package com.example.nasaapp.viewmodel
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,9 +27,9 @@ class ApodViewModel(application: Application) : AndroidViewModel(application) {
             override fun onFailure(str: String) {
                 mApod.value = null
             }
-
         })
     }
+
 
 
 }
