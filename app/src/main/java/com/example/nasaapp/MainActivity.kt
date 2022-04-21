@@ -44,13 +44,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun observe() {
-        mViewModel.apod.observe(this, Observer {
+        mViewModel.apod.observe(this) {
             if (date != " ") {
+                binding.editTextBirthdate.text.clear()
                 startActivity(Intent(this, ApodActivity::class.java))
             } else {
                 Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
 }
