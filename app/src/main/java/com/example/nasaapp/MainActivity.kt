@@ -5,15 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.databinding.ActivityMainBinding
 import com.example.nasaapp.viewmodel.ApodViewModel
 
+
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mViewModel: ApodViewModel
     private lateinit var binding: ActivityMainBinding
-    lateinit var date: String
+    private lateinit var date: String
+    private lateinit var dateFormated: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         if (v.id == R.id.button_enter) {
             getBirthdayDate()
-            mViewModel.getInfosAstronomyPicOfTheDay(date)
+            convertMaskDate(date)
+            mViewModel.getInfosAstronomyPicOfTheDay(dateFormated)
         } else {
             Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show()
         }
@@ -43,11 +45,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         date = binding.editTextBirthdate.text.toString()
     }
 
+    private fun convertMaskDate(date: String) {
+        dateFormated =
+            date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.subSequence(6, 8)
+    }
+
     private fun observe() {
         mViewModel.apod.observe(this) {
             if (it != null) {
                 binding.editTextBirthdate.text.clear()
-                var intent = Intent(this, ApodActivity::class.java)
+                val intent = Intent(this, ApodActivity::class.java)
                 intent.putExtra("title", it.title)
                 intent.putExtra("explanation", it.explanation)
                 intent.putExtra("url", it.url)
