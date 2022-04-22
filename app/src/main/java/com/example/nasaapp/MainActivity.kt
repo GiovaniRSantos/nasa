@@ -46,8 +46,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun convertMaskDate(date: String) {
-        dateFormated =
-            date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.subSequence(6, 8)
+        if (date != "") {
+            dateFormated =
+                date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.subSequence(6, 8)
+        } else {
+            dateFormated = ""
+        }
     }
 
     private fun observe() {
